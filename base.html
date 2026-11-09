@@ -1,0 +1,22 @@
+ <!-- Навігація -->
+<nav class="bg-blue-600 text-white shadow-md py-4 px-6">
+    <div class="max-w-4xl mx-auto flex justify-between items-center">
+        <a href="#" class="font-bold text-xl tracking-wide">Мій Проєкт</a>
+        <div class="space-x-6 flex items-center">
+            <a href="{{ url_for('index') }}" class="hover:text-blue-200 transition">Головна</a>
+            <a href="{{ url_for('services') }}" class="hover:text-blue-200 transition">Послуги</a>
+        </div>
+    </div>
+</nav>
+
+<!-- Основний контент сторінок -->
+<main class="flex-grow container mx-auto px-4 py-8">
+    {% block content %}
+    {% endblock %}
+</main> 
+
+<!-- Футер -->
+<footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-500">
+    <p>&copy; 2026 WebStudio. Всі права захищені.</p>
+</footer>
+ 
