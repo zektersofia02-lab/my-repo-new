@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+
+{% block title %}Послуги — WebStudio{% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-8 px-4">
+    
+    <!-- Заголовок сторінки -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">Наші послуги</h1>
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Ми створюємо сучасні вебсайти, які допомагають вашому бізнесу зростати, залучати клієнтів та виділятися серед конкурентів.
+        </p>
+    </div>
+
+    <!-- Сітка карток послуг -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Варіант 1: Лендинг -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col justify-between transition transform hover:-translate-y-1 hover:shadow-xl">
+            <div>
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-6">🚀</div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">Лендинг</h3>
+                <p class="text-gray-600 mb-6">Односторінковий сайт для швидкого продажу товару, послуги чи презентації бренду.</p>
+                <ul class="space-y-3 text-sm text-gray-600 mb-8">
+                    <li class="flex items-center">✓ Унікальний дизайн</li>
+                    <li class="flex items-center">✓ Адаптивність під мобільні</li>
+                    <li class="flex items-center">✓ Базова SEO-оптимізація</li>
+                </ul>
+            </div>
+            <a href="#" class="block text-center bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl hover:bg-blue-700 transition">Замовити</a>
+        </div>
+
+        <!-- Варіант 2: Корпоративний сайт (виділений як популярний) -->
+        <div class="bg-white rounded-2xl shadow-lg border-2 border-blue-600 p-8 flex flex-col justify-between transition transform hover:-translate-y-1 hover:shadow-xl relative">
+            <span class="absolute -top-3 right-6 bg-blue-600 text-white text-xs font-bold uppercase px-3 py-1 rounded-full">Популярне</span>
+            <div>
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-6">💼</div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">Корпоративний сайт</h3>
+                <p class="text-gray-600 mb-6">Багатосторінковий сайт для компанії з презентацією послуг, каталогом та новинами.</p>
+                <ul class="space-y-3 text-sm text-gray-600 mb-8">
+                    <li class="flex items-center">✓ Багатосторінкова структура</li>
+                    <li class="flex items-center">✓ Індивідуальний інтерфейс</li>
+                    <li class="flex items-center">✓ Адмін-панель для керування</li>
+                </ul>
+            </div>
+            <a href="#" class="block text-center bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl hover:bg-blue-700 transition">Замовити</a>
+        </div>
+
+        <!-- Варіант 3: Інтернет-магазин -->
+        <div class="bg-white rounded-2xl shadow-lg border border-gray-100 p-8 flex flex-col justify-between transition transform hover:-translate-y-1 hover:shadow-xl">
+            <div>
+                <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-xl flex items-center justify-center font-bold text-xl mb-6">🛒</div>
+                <h3 class="text-2xl font-bold text-gray-900 mb-3">Інтернет-магазин</h3>
+                <p class="text-gray-600 mb-6">Повноцінна платформа для онлайн-торгівлі з каталогом, кошиком та оплатою.</p>
+                <ul class="space-y-3 text-sm text-gray-600 mb-8">
+                    <li class="flex items-center">✓ Каталог товарів та фільтри</li>
+                    <li class="flex items-center">✓ Інтеграція платежів</li>
+                    <li class="flex items-center">✓ Особистий кабінет покупця</li>
+                </ul>
+            </div>
+            <a href="#" class="block text-center bg-blue-600 text-white font-semibold py-3 px-4 rounded-xl hover:bg-blue-700 transition">Замовити</a>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
