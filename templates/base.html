@@ -4,33 +4,41 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Мій Проєкт</title>
-    <!-- Підключення Tailwind CSS через CDN -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body class="min-h-screen flex flex-col bg-gray-50">
 
-    <!-- Навігація -->
-    <nav class="bg-blue-600 text-white shadow-md py-4 px-6">
-        <div class="max-w-4xl mx-auto flex justify-between items-center">
-            <a href="#" class="font-bold text-xl tracking-wide">Мій Проєкт</a>
+    <nav class="bg-teal-700 text-white shadow-md py-4 px-6">
+        <div class="max-w-6xl mx-auto flex justify-between items-center">
+            <a href="{{ url_for('index') }}" class="font-bold text-xl tracking-wide">Мій Проєкт</a>
             <div class="space-x-6 flex items-center">
-                <a href="{{ url_for('index') }}" class="hover:text-blue-200 transition">Головна</a>
-               <a href="{{ url_for('shop.services') }}" ...>Послуги</a>
-                <div class="space-x-6 flex items-center">
-    <a href="{{ url_for('contact') }}" class="hover:text-blue-200 transition">Контакти</a>
-</div>
+                <a href="{{ url_for('index') }}" class="hover:text-teal-200 transition">Головна</a>
+                <a href="{{ url_for('shop.services') }}" class="hover:text-teal-200 transition">Послуги</a>
+                <a href="{{ url_for('shop.view_orders') }}" class="hover:text-teal-200 transition font-semibold">Мої замовлення</a>
+                <a href="{{ url_for('contact') }}" class="hover:text-teal-200 transition">Контакти</a>
             </div>
         </div>
     </nav>
 
-    <!-- Основний контент сторінок -->
     <main class="flex-grow container mx-auto px-4 py-8">
+        <!-- Зелений/червоний плашка сповіщення після дії -->
+        {% with messages = get_flashed_messages(with_categories=true) %}
+            {% if messages %}
+                <div class="max-w-xl mx-auto mb-6 space-y-2">
+                    {% for category, message in messages %}
+                        <div class="p-4 rounded-xl text-sm font-semibold text-center {% if category == 'error' %}bg-red-100 text-red-700 border border-red-200{% else %}bg-teal-100 text-teal-800 border border-teal-200 shadow-sm{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        {% endwith %}
+
         {% block content %}
         {% endblock %}
     </main>
 
-    <!-- Футер -->
     <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-500">
         <p>&copy; 2026 WebStudio. Всі права захищені.</p>
     </footer>

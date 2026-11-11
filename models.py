@@ -22,7 +22,7 @@ def init_db(app):
     with app.app_context():
         db = get_db()
         
-        # 1. Таблиця відгуків (Рівень 1)
+        # 1. Таблиця відгуків
         db.execute('''
             CREATE TABLE IF NOT EXISTS feedback (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -31,7 +31,7 @@ def init_db(app):
             )
         ''')
         
-        # 2. Таблиця товарів/послуг (Рівень 1)
+        # 2. Таблиця товарів/послуг
         db.execute('''
             CREATE TABLE IF NOT EXISTS products (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -45,8 +45,13 @@ def init_db(app):
         db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (1, 'Веб-розробка', 5000.0, 'Розробка надійних серверних застосунків на Python із використанням Flask.');")
         db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (2, 'Адаптивна верстка', 3000.0, 'Створення кросплатформових вебсторінок за допомогою Tailwind CSS.');")
         db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (3, 'Шаблонізація Jinja2', 2500.0, 'Побудова динамічних та оптимізованих HTML-шаблонів з наслідуванням.');")
+        
+        # Додаткові послуги
+        db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (4, 'Бази даних SQLite', 4000.0, 'Проєктування реляційних баз даних, написання SQL-запитів та зв’язків.');")
+        db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (5, 'Деплой застосунку', 3500.0, 'Налаштування локального середовища, робота з Git та розгортання проєкту.');")
+        db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (6, 'UI/UX Оптимізація', 2000.0, 'Покращення інтерфейсу та адаптивності за допомогою сучасних фреймворків.');")
 
-        # 3. Таблиця замовлень (Рівень 1)
+        # 3. Таблиця замовлень
         db.execute('''
             CREATE TABLE IF NOT EXISTS orders (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -56,7 +61,7 @@ def init_db(app):
             )
         ''')
         
-        # 4. Таблиця користувачів з ролями (Твоє завдання — Рівень 3)
+        # 4. Таблиця користувачів з ролями
         db.execute('''
             CREATE TABLE IF NOT EXISTS users (
                 id INTEGER PRIMARY KEY AUTOINCREMENT,

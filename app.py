@@ -1,8 +1,12 @@
-from flask import Flask, render_template
+from flask import Flask, render_template  # <--- Додали Flask
 from models import init_db, close_db
-from routes.shop import shop_bp  # <--- Додали імпорт твого модуля
+from routes.shop import shop_bp 
 
 app = Flask(__name__)
+
+# ДОДАЄМО СЕКРЕТНИЙ КЛЮЧ ДЛЯ РОБОТИ ПОВІДОМЛЕНЬ ТА СЕСІЙ
+app.secret_key = 'super-secret-key-12345'
+
 app.config['DATABASE'] = 'db.sqlite'
 
 # Ініціалізація бази даних
@@ -10,7 +14,7 @@ init_db(app)
 app.teardown_appcontext(close_db)
 
 # Реєструємо маршрути магазину/послуг
-app.register_blueprint(shop_bp)  # <--- Зареєстрували блупринт
+app.register_blueprint(shop_bp)
 
 @app.route('/')
 def index():
