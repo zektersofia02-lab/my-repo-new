@@ -41,6 +41,11 @@ def init_db(app):
             )
         ''')
         
+        # Додаємо тестові послуги в базу, якщо їх там ще немає
+        db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (1, 'Веб-розробка', 5000.0, 'Розробка надійних серверних застосунків на Python із використанням Flask.');")
+        db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (2, 'Адаптивна верстка', 3000.0, 'Створення кросплатформових вебсторінок за допомогою Tailwind CSS.');")
+        db.execute("INSERT OR IGNORE INTO products (id, title, price, description) VALUES (3, 'Шаблонізація Jinja2', 2500.0, 'Побудова динамічних та оптимізованих HTML-шаблонів з наслідуванням.');")
+
         # 3. Таблиця замовлень (Рівень 1)
         db.execute('''
             CREATE TABLE IF NOT EXISTS orders (
