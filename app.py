@@ -1,6 +1,7 @@
 from flask import Flask, render_template  # <--- Додали Flask
 from models import init_db, close_db
 from routes.shop import shop_bp 
+from routes.admin import admin_bp  # <--- 1. Імпортуємо твою адмінку
 
 app = Flask(__name__)
 
@@ -15,6 +16,9 @@ app.teardown_appcontext(close_db)
 
 # Реєструємо маршрути магазину/послуг
 app.register_blueprint(shop_bp)
+
+# Реєструємо твою адмін-панель категорій!
+app.register_blueprint(admin_bp)
 
 @app.route('/')
 def index():

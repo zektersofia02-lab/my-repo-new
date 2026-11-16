@@ -71,4 +71,13 @@ def init_db(app):
             )
         ''')
         
+        # 5. Таблиця категорій (Твоя таблиця для Рівня 2)
+        db.execute('''
+            CREATE TABLE IF NOT EXISTS categories (
+                id INTEGER PRIMARY KEY AUTOINCREMENT,
+                name TEXT NOT NULL UNIQUE,
+                description TEXT
+            )
+        ''')
+        
         db.commit()
