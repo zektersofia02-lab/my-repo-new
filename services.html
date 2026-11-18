@@ -1,0 +1,74 @@
+```html
+{% extends "base.html" %}
+
+{% block title %} Послуги {% endblock %}
+
+{% block content %}
+<div class="max-w-6xl mx-auto py-10">
+
+    <!-- Заголовок -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+            Наші Послуги та Можливості
+        </h1>
+
+        <p class="text-lg text-gray-600">
+            Оберіть те, що підходить саме вам.
+        </p>
+    </div>
+
+    <!-- Сітка карток послуг -->
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <!-- Картка 1 -->
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-300">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl mb-4">
+                01
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Веброзробка
+            </h3>
+
+            <p class="text-gray-600 text-sm leading-relaxed">
+                Створення повноцінних вебзастосунків на Flask та Python
+                під ваші індивідуальні потреби.
+            </p>
+        </div>
+
+        <!-- Картка 2 -->
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-300">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl mb-4">
+                02
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                UI/UX Дизайн
+            </h3>
+
+            <p class="text-gray-600 text-sm leading-relaxed">
+                Проєктування зручних інтерфейсів з використанням
+                Tailwind CSS для будь-яких пристроїв.
+            </p>
+        </div>
+
+        <!-- Картка 3 -->
+        <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-lg transition duration-300">
+            <div class="w-12 h-12 bg-blue-100 text-blue-600 rounded-lg flex items-center justify-center font-bold text-xl mb-4">
+                03
+            </div>
+
+            <h3 class="text-xl font-bold text-gray-800 mb-2">
+                Консультації
+            </h3>
+
+            <p class="text-gray-600 text-sm leading-relaxed">
+                Допомога в архітектурі проєктів, оптимізації коду
+                та налаштуванні інструментів розробки.
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+```

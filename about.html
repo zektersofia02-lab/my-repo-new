@@ -1,0 +1,56 @@
+```html
+{% extends "base.html" %}
+
+{% block content %}
+<div class="max-w-5xl mx-auto py-10">
+
+    <!-- Заголовок сторінки -->
+    <div class="text-center mb-12">
+        <h1 class="text-4xl font-extrabold text-gray-900 mb-4">
+            Про нашу команду та проєкт
+        </h1>
+
+        <p class="text-lg text-gray-600 max-w-2xl mx-auto">
+            Ми — команда розробників, яка створює сучасні та зручні вебрішення
+            з використанням передових технологій.
+        </p>
+    </div>
+
+    <!-- Блоки інформації -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 items-center mb-16">
+
+        <div class="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
+            <h2 class="text-2xl font-bold text-blue-600 mb-4">
+                Наша місія
+            </h2>
+
+            <p class="text-gray-600 leading-relaxed mb-4">
+                Забезпечити користувачів інтуїтивним інтерфейсом,
+                високою швидкістю роботи та якісним контентом.
+                Ми прагнемо втілювати найкращі практики вебдизайну
+                та програмування.
+            </p>
+
+            <ul class="space-y-2 text-gray-700">
+                <li>✅ Чистий та структурований код</li>
+                <li>✅ Сучасний адаптивний дизайн</li>
+                <li>✅ Командна синергія</li>
+            </ul>
+        </div>
+
+        <div class="bg-blue-50 p-8 rounded-2xl border border-blue-100 flex flex-col justify-center h-full">
+            <h3 class="text-xl font-semibold text-blue-900 mb-3">
+                Технологічний стек
+            </h3>
+
+            <p class="text-blue-700 text-sm leading-relaxed">
+                Проєкт розроблено на базі мови Python із використанням
+                мікрофреймворку Flask, шаблонізатора Jinja2
+                та сучасного CSS-фреймворку Tailwind.
+            </p>
+        </div>
+
+    </div>
+</div>
+{% endblock %}
+```

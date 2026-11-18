@@ -1,0 +1,124 @@
+body {
+    background: #ccfbf1 !important; /* дуже ніжний м'ятно-ізумрудний колір */
+}
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f4f7f6;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+}
+
+.container {
+    max-width: 700px;
+    width: 100%;
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+h1 {
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.contact-card {
+    background: #f9f9f9;
+    border-left: 4px solid #18b49a;
+    padding: 15px;
+    margin-top: 20px;
+    border-radius: 4px;
+}
+
+.btn-custom {
+    display: inline-block;
+    background-color: #10b19b;
+    color: white;
+    padding: 10px 20px;
+    border-radius: 6px;
+    text-decoration: none;
+    font-weight: bold;
+    transition: background-color 0.3s ease;
+    margin-top: 15px;
+}
+
+/* Ізумрудно-ніжне оформлення */
+.contact-card {
+    background: #ffffff;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+    border-left: 5px solid #0d9488; /* ізумрудно-бірюзовий акцент */
+    transition: transform 0.2s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-3px);
+}
+
+.btn-custom {
+    display: inline-block;
+    background-color: #0d9488; /* ізумрудний */
+    color: white;
+    padding: 10px 20px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    transition: background-color 0.2s ease;
+}
+
+.btn-custom:hover {
+    background-color: #0f766e; /* темніший ізумрудний при наведенні */
+}
+/* Примусовий ізумрудний колір для шапки та банера */
+header, .bg-teal-700, .bg-teal-600, .bg-blue-600 {
+    background-color: #0f766e !important; /* ніжний і глибокий ізумрудний */
+}
+
+/* Колір заголовків та акцентів */
+.text-blue-600, .text-teal-700 {
+    color: #0f766e !important;
+}
+
+/* Колір кнопки при наведенні */
+a:hover {
+    color: #14b8a6 !important;
+}
+.bg-white {
+    transition: all 0.3s ease;
+}
+.bg-white:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.1);
+}
+.contact-card {
+    background: #ffffff;
+    border-radius: 16px;
+    padding: 24px;
+    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05);
+    border-left: 5px solid #16a196; /* ізумрудний акцент зліва */
+    transition: all 0.3s ease;
+}
+
+.contact-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(15, 118, 110, 0.1);
+}
+/* Плавний ніжний градієнт на фоні всього сайту */
+body {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f8fafc 100%) !important;
+    min-height: 100vh;
+}
+/* Ефект легкої напівпрозорості для карток, щоб градієнт красиво підсвічував їх ззаду */
+.bg-white {
+    background-color: rgba(255, 255, 255, 0.85) !important;
+    backdrop-filter: blur(8px);
+}
+body {
+    background: linear-gradient(135deg, #f0fdf4 0%, #ecfdf5 50%, #f8fafc 100%) !important;
+    min-height: 100vh;
+}
