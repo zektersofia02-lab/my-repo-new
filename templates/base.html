@@ -3,31 +3,48 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>VebStudio</title>
+    <title>{% block title %}Web Studio{% endblock %}</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
 </head>
-<body class="min-h-screen flex flex-col bg-gray-50">
+<body class="min-h-screen flex flex-col bg-rose-50/60 text-stone-800 antialiased selection:bg-rose-200 selection:text-rose-950">
 
-    <nav class="bg-teal-700 text-white shadow-md py-4 px-6">
-        <div class="max-w-6xl mx-auto flex justify-between items-center">
-            <a href="{{ url_for('index') }}" class="font-bold text-xl tracking-wide">Мій Проєкт</a>
-            <div class="space-x-6 flex items-center">
-                <a href="{{ url_for('index') }}" class="hover:text-teal-200 transition">Головна</a>
-                <a href="{{ url_for('shop.services') }}" class="hover:text-teal-200 transition">Послуги</a>
-                <a href="{{ url_for('shop.view_orders') }}" class="hover:text-teal-200 transition font-semibold">Мої замовлення</a>
-                <a href="{{ url_for('contact') }}" class="hover:text-teal-200 transition">Контакти</a>
+    <header class="sticky top-3 z-30 px-4 sm:px-6">
+        <nav class="max-w-6xl mx-auto bg-white border border-rose-200 rounded-2xl shadow-sm px-5 py-3 flex flex-wrap justify-between items-center gap-4">
+            <a href="{{ url_for('index') }}" class="flex items-center gap-2.5 text-base sm:text-lg font-bold tracking-tight text-stone-900 hover:text-rose-600 transition">
+                <span class="w-3 h-3 rounded-sm rotate-45 bg-rose-500"></span>
+                <span>Web Studio</span>
+            </a>
+
+            <div class="flex flex-wrap items-center gap-1.5 sm:gap-3 text-sm font-medium text-stone-600">
+                <a href="{{ url_for('index') }}" class="px-3.5 py-1.5 rounded-xl hover:bg-rose-50 hover:text-rose-600 transition">Головна</a>
+                <a href="{{ url_for('shop.services') }}" class="px-3.5 py-1.5 rounded-xl hover:bg-rose-50 hover:text-rose-600 transition">Послуги</a>
+                <a href="{{ url_for('api_demo') }}" class="px-3.5 py-1.5 rounded-xl hover:bg-rose-50 hover:text-rose-600 transition">API Demo</a>
+                <a href="{{ url_for('shop.view_orders') }}" class="px-4 py-1.5 rounded-xl bg-rose-500 text-white hover:bg-rose-600 transition font-semibold shadow-xs">Мої замовлення</a>
+                <a href="{{ url_for('contact') }}" class="px-3.5 py-1.5 rounded-xl hover:bg-rose-50 hover:text-rose-600 transition">Контакти</a>
             </div>
-        </div>
-    </nav>
+        </nav>
+    </header>
 
-    <main class="flex-grow container mx-auto px-4 py-8">
-        <!-- Зелений/червоний плашка сповіщення після дії -->
+    <main class="flex-grow w-full max-w-6xl mx-auto px-4 sm:px-6 py-8">
         {% with messages = get_flashed_messages(with_categories=true) %}
             {% if messages %}
                 <div class="max-w-xl mx-auto mb-6 space-y-2">
                     {% for category, message in messages %}
-                        <div class="p-4 rounded-xl text-sm font-semibold text-center {% if category == 'error' %}bg-red-100 text-red-700 border border-red-200{% else %}bg-teal-100 text-teal-800 border border-teal-200 shadow-sm{% endif %}">
+                        <div class="px-5 py-3 rounded-2xl text-sm font-medium text-center shadow-xs {% if category == 'error' %}bg-red-50 text-red-700 border border-red-200{% else %}bg-rose-100 text-rose-900 border border-rose-200{% endif %}">
                             {{ message }}
                         </div>
                     {% endfor %}
@@ -39,8 +56,14 @@
         {% endblock %}
     </main>
 
-    <footer class="bg-white border-t border-gray-200 py-6 text-center text-sm text-gray-500">
-        <p>&copy; 2026 WebStudio. Всі права захищені.</p>
+    <footer class="mt-10 border-t border-rose-200/70 bg-white/80 py-6 px-6 text-sm text-stone-500">
+        <div class="max-w-6xl mx-auto flex flex-col sm:flex-row justify-between items-center gap-3">
+            <div class="flex items-center gap-2 font-semibold text-stone-700">
+                <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+                <span>Web Studio</span>
+            </div>
+            <p>&copy; 2026 Web Studio. Всі права захищені.</p>
+        </div>
     </footer>
 
 </body>

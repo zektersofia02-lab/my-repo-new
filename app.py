@@ -5,8 +5,8 @@ import sqlite3
 from models import init_db, close_db
 from routes.shop import shop_bp
 from routes.admin import admin_bp
-from routes.v1 import api_v1  # <--- Новий Blueprint версії API v1[cite: 1]
-from routes.v2 import api_v2  # <--- Новий Blueprint версії API v2[cite: 1]
+from routes.v1 import api_v1  # <--- Новий Blueprint версії API v1
+from routes.v2 import api_v2  # <--- Новий Blueprint версії API v2
 
 app = Flask(__name__)
 
@@ -23,14 +23,14 @@ app.config['DATABASE'] = 'db.sqlite'
 init_db(app)
 app.teardown_appcontext(close_db)
 
-# Підключаємо Swagger UI (буде доступний за адресою /apidocs/)[cite: 1]
+# Підключаємо Swagger UI (буде доступний за адресою /apidocs/)
 swagger = Swagger(app)
 
 # Реєструємо існуючі маршрути
 app.register_blueprint(shop_bp) 
 app.register_blueprint(admin_bp)
 
-# Реєструємо версії REST API (/api/v1/... та /api/v2/...)[cite: 1]
+# Реєструємо версії REST API (/api/v1/... та /api/v2/...)
 app.register_blueprint(api_v1)
 app.register_blueprint(api_v2)
 
@@ -43,6 +43,11 @@ def index():
 @app.route('/about')
 def about():
     return render_template('about.html', title='Про нас')
+
+
+@app.route('/api-demo')
+def api_demo():
+    return render_template('api-demo.html')
 
 
 @app.route('/contact', methods=['GET', 'POST'])
@@ -70,7 +75,7 @@ def api_demo():
     return render_template('api-demo.html')
 
 
-# Обробка помилок у форматі JSON (щоб API повертало JSON, а не HTML)[cite: 1]
+# Обробка помилок у форматі JSON (щоб API повертало JSON, а не HTML)
 @app.errorhandler(400)
 def bad_request(error):
     return jsonify({'error': 'Некоректний запит', 'status': 400}), 400
