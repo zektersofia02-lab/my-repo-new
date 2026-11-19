@@ -84,3 +84,77 @@ def create_order_v1():
         "product_id": data["product_id"],
         "status": status,
     }), 201
+@api_v1.route("/products/<int:product_id>", methods=["PUT", "PATCH"])
+def update_product_v1(product_id):
+    data = request.get_json(silent=True) or {}
+    db = get_db()
+    existing = db.execute(
+        "SELECT * FROM products WHERE id = ?", (product_id,)
+    ).fetchone()
+    if existing is None:
+        return jsonify({"error": "Послугу/товар не знайдено"}), 404
+
+    title = data.get("title", existing["title"])
+    price = data.get("price", existing["price"])
+    description = data.get("description", existing["description"])
+
+    db.execute(
+        "UPDATE products SET title = ?, price = ?, description = ? WHERE id = ?",
+        (title, price, description, product_id),
+    )
+    db.commit()
+    updated = db.execute(
+        "SELECT * FROM products WHERE id = ?", (product_id,)
+    ).fetchone()
+    return jsonify(dict(updated)), 200
+
+
+@api_v1.route("/orders/<int:order_id>", methods=["GET"])
+def get_order_v1(order_id):
+    row = get_db().execute(
+        "SELECT * FROM orders WHERE id = ?", (order_id,)
+    ).fetchone()
+    if row is None:
+        return jsonify({"error": "Замовлення не знайдено"}), 404
+    return jsonify(dict(row)), 200
+
+
+@api_v1.route("/orders/<int:order_id>", methods=["PUT", "PATCH"])
+def update_order_v1(order_id):
+    data = request.get_json(silent=True) or {}
+    db = get_db()
+    existing = db.execute(
+        "SELECT * FROM orders WHERE id = ?", (order_id,)
+    ).fetchone()
+    if existing is None:
+        return jsonify({"error": "Замовлення не знайдено"}), 404
+
+    product_id = data.get("product_id", existing["product_id"])
+    status = data.get("status", existing["status"])
+
+    if "product_id" in data:
+        product = db.execute(
+            "SELECT id FROM products WHERE id = ?", (product_id,)
+        ).fetchone()
+        if product is None:
+            return jsonify({"error": "Вказаний товар/послуга не існує"}), 404
+
+    db.execute(
+        "UPDATE orders SET product_id = ?, status = ? WHERE id = ?",
+        (product_id, status, order_id),
+    )
+    db.commit()
+    updated = db.execute(
+        "SELECT * FROM orders WHERE id = ?", (order_id,)
+    ).fetchone()
+    return jsonify(dict(updated)), 200
+
+
+@api_v1.route("/orders/<int:order_id>", methods=["DELETE"])
+def delete_order_v1(order_id):
+    db = get_db()
+    cursor = db.execute("DELETE FROM orders WHERE id = ?", (order_id,))
+    db.commit()
+    if cursor.rowcount == 0:
+        return jsonify({"error": "Замовлення не знайдено"}), 404
+    return "", 204
