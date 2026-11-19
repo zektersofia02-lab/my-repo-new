@@ -1,52 +1,75 @@
 {% extends "base.html" %}
 
+{% block title %}Каталог API — Web Studio{% endblock %}
+
 {% block content %}
-<div class="max-w-4xl mx-auto space-y-6">
+<div class="max-w-4xl mx-auto py-4 sm:py-6 space-y-8">
     <!-- Заголовок -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <h1 class="text-2xl font-bold text-gray-800">API Demo</h1>
-        <p class="text-sm text-gray-500 mt-1">
-            Перегляд записів та додавання нового елемента через API.
+    <div class="bg-gradient-to-br from-rose-100/80 via-pink-50 to-white p-6 sm:p-8 rounded-[2rem] shadow-sm border border-rose-200/80">
+        <span class="inline-flex items-center gap-2 bg-white/90 text-rose-700 border border-rose-200 text-xs font-semibold uppercase tracking-wider px-3.5 py-1 rounded-full mb-3">
+            <span class="w-2 h-2 rounded-full bg-rose-400"></span>
+            REST API
+        </span>
+        <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900">Каталог API</h1>
+        <p class="text-sm sm:text-base text-stone-600 mt-1.5">
+            Перегляд послуг і товарів та додавання нових записів через API.
         </p>
     </div>
 
     <!-- Повідомлення про успіх або помилку -->
-    <div id="message" class="hidden p-4 rounded-xl text-sm font-semibold text-center border" role="alert"></div>
+    <div id="message" class="hidden px-5 py-3.5 rounded-2xl text-sm font-semibold text-center border shadow-xs" role="alert"></div>
 
-    <!-- Форма додавання запису -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <h2 class="text-lg font-bold text-gray-800 mb-4">Додати запис</h2>
+    <!-- Форма додавання товару/послуги -->
+    <div class="bg-white p-6 sm:p-8 rounded-[1.75rem] shadow-xs border border-rose-100">
+        <h2 class="text-lg sm:text-xl font-bold text-stone-900 mb-5">Додати запис</h2>
 
         <form id="addForm" class="space-y-4">
             <div>
-                <label for="titleInput" class="block text-sm font-medium text-gray-700 mb-1">
-                    Назва / Заголовок
+                <label for="titleInput" class="block text-sm font-medium text-stone-700 mb-1.5">
+                    Назва послуги / товару
                 </label>
                 <input
                     id="titleInput"
                     name="title"
                     type="text"
-                    placeholder="Введіть назву"
-                    class="w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    required
+                    placeholder="Наприклад: Розробка сайту"
+                    class="w-full px-4 py-2.5 bg-white rounded-2xl border border-rose-200 text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 transition"
                 >
             </div>
 
             <div>
-                <label for="descriptionInput" class="block text-sm font-medium text-gray-700 mb-1">
-                    Опис / Текст
+                <label for="priceInput" class="block text-sm font-medium text-stone-700 mb-1.5">
+                    Ціна
+                </label>
+                <input
+                    id="priceInput"
+                    name="price"
+                    type="number"
+                    step="any"
+                    min="0"
+                    required
+                    placeholder="Введіть ціну"
+                    class="w-full px-4 py-2.5 bg-white rounded-2xl border border-rose-200 text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 transition"
+                >
+            </div>
+
+            <div>
+                <label for="descriptionInput" class="block text-sm font-medium text-stone-700 mb-1.5">
+                    Опис
                 </label>
                 <textarea
                     id="descriptionInput"
                     name="description"
                     rows="3"
                     placeholder="Введіть опис"
-                    class="w-full px-4 py-2 rounded-xl border border-gray-300 focus:outline-none focus:ring-2 focus:ring-teal-500"
+                    class="w-full px-4 py-2.5 bg-white rounded-2xl border border-rose-200 text-stone-800 placeholder:text-stone-400 focus:outline-none focus:ring-2 focus:ring-rose-300 focus:border-rose-400 transition"
                 ></textarea>
             </div>
 
             <button
                 type="submit"
-                class="bg-teal-700 hover:bg-teal-800 text-white font-semibold px-5 py-2.5 rounded-xl transition cursor-pointer"
+                class="bg-rose-500 hover:bg-rose-600 text-white font-semibold px-7 py-2.5 rounded-full shadow-md shadow-rose-200/80 transition cursor-pointer"
             >
                 Додати
             </button>
@@ -54,10 +77,10 @@
     </div>
 
     <!-- Список записів -->
-    <div class="bg-white p-6 rounded-2xl shadow-sm border border-gray-100">
-        <div class="flex items-center justify-between mb-4">
-            <h2 class="text-lg font-bold text-gray-800">Список записів</h2>
-            <span id="loading" class="text-sm font-medium text-teal-700">Завантаження...</span>
+    <div class="bg-rose-50/40 p-6 sm:p-8 rounded-[1.75rem] shadow-xs border border-rose-100">
+        <div class="flex items-center justify-between gap-3 mb-5">
+            <h2 class="text-lg sm:text-xl font-bold text-stone-900">Список записів</h2>
+            <span id="loading" class="text-sm font-semibold text-rose-600 bg-rose-100/80 border border-rose-200/70 px-3 py-1 rounded-full">Завантаження...</span>
         </div>
 
         <div id="dataList" class="space-y-3"></div>
