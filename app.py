@@ -10,6 +10,10 @@ from routes.v2 import api_v2  # <--- Новий Blueprint версії API v2[ci
 
 app = Flask(__name__)
 
+from flask_cors import CORS
+
+CORS(app, resources={r"/api/*": {"origins": "*"}})
+
 # ДОДАЄМО СЕКРЕТНИЙ КЛЮЧ ДЛЯ РОБОТИ ПОВІДОМЛЕНЬ ТА СЕСІЙ
 app.secret_key = 'super-secret-key-12345'
 
@@ -60,6 +64,10 @@ def contact():
         return redirect(url_for('contact'))
 
     return render_template('contact.html', title='Контакти')
+
+@app.route('/api-demo')
+def api_demo():
+    return render_template('api-demo.html')
 
 
 # Обробка помилок у форматі JSON (щоб API повертало JSON, а не HTML)[cite: 1]
