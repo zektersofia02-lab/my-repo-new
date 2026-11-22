@@ -72,3 +72,15 @@ cd <назва-папки># my-repo-new
     "status": "Новий"
   }
 ]
+## Інтеграція фронтенду `/api-demo`
+
+Сторінка **`/api-demo`** інтегрована з бекенд-ендпоінтом `POST /api/v1/products` та `GET /api/v1/products`:
+* **HTML-шаблон:** `templates/api-demo.html`
+* **Клієнтський скрипт:** `static/api-demo.js`
+* **Формат тіла запиту (`POST /api/v1/products`):**
+  ```json
+  {
+    "title": "Назва послуги або товару",
+    "price": 100,
+    "description": "Опис (опціонально)"
+  }
