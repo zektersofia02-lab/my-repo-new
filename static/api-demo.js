@@ -13,7 +13,7 @@ async function fetchData() {
     if (messageBox) messageBox.textContent = '';
 
     try {
-        const response = await fetch('/api/v1/items'); // Заміни шлях, якщо Учасник 1 дав інший
+       const response = await fetch('/api/v1/products');
         
         if (!response.ok) {
             throw new Error(`Помилка сервера: ${response.status}`);
@@ -37,7 +37,7 @@ async function fetchData() {
             
             // Безпечне додавання через textContent
             const title = document.createElement('h3');
-            title.textContent = item.name || 'Без назви'; // Заміни 'name' на поле твого ресурсу
+            title.textContent = item.title || 'Без назви'; // Заміни 'name' на поле твого ресурсу
             
             const desc = document.createElement('p');
             desc.textContent = item.description || ''; // Заміни 'description' на своє поле
@@ -69,14 +69,17 @@ document.addEventListener('DOMContentLoaded', () => {
             const messageBox = document.getElementById('message');
             
             // Збираємо дані з полів форми (заміни 'name' та 'description' на реальні id твоїх інпутів)
-            const nameInput = document.getElementById('itemName'); 
-            const descInput = document.getElementById('itemDescription');
-
-            const name = nameInput ? nameInput.value.trim() : '';
-            const description = descInput ? descInput.value.trim() : '';
+           const titleInput = document.getElementById('titleInput');
+           const priceInput = document.getElementById('priceInput');
+           const descInput = document.getElementById('descriptionInput');
+           const title = titleInput ? titleInput.value.trim() : '';
+           const priceRaw = priceInput ? priceInput.value.trim() : '';
+           const price = Number(priceRaw);
+           const description = descInput ? descInput.value.trim() : ''; 
+            
 
             // 1. Проста валідація на клієнті
-            if (!name) {
+            if (!title) {
                 if (messageBox) {
                     messageBox.className = 'error';
                     messageBox.textContent = 'Будь ласка, заповніть обов\'язкове поле (назву)!';
@@ -86,13 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
 
             // Формуємо об'єкт для відправки
             const requestData = {
-                name: name,
-                description: description
-            };
-
+              title: title,
+              price: price,
+              };
+             
             try {
                 // Відправляємо POST-запит
-                const response = await fetch('/api/v1/items', { // Заміни шлях під свій бекенд, якщо потрібно
+                const response = await fetch('/api/v1/products', { // Заміни шлях під свій бекенд, якщо потрібно
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json'
@@ -122,6 +125,7 @@ document.addEventListener('DOMContentLoaded', () => {
                 if (messageBox) {
                     messageBox.className = 'error';
                     messageBox.textContent = `Не вдалося додати запис: ${error.message}`;
+                    messageBox.classList.remove('hidden');
                 }
             }
         });
