@@ -1,5 +1,6 @@
-from flask import Blueprint, jsonify, request
+from flask import Blueprint, jsonify, request, abort
 from models import get_db
+from validators import validate_json_data, validate_string_field, validate_positive_number
 
 api_v1 = Blueprint("api_v1", __name__, url_prefix="/api/v1")
 
@@ -125,6 +126,63 @@ def delete_product_v1(product_id):
     return "", 204
 
 
+@api_v1.route("/products/<int:product_id>", methods=["PUT", "PATCH"])
+def update_product_v1(product_id):
+    """
+    Оновити товар/послугу за ID (v1)
+    ---
+    tags:
+      - API v1 - Products
+    parameters:
+      - name: product_id
+        in: path
+        type: integer
+        required: true
+        example: 1
+      - name: body
+        in: body
+        required: true
+        schema:
+          type: object
+          properties:
+            title:
+              type: string
+              example: "Оновлена назва"
+            price:
+              type: number
+              example: 4000
+            description:
+              type: string
+              example: "Оновлений опис"
+    responses:
+      200:
+        description: Оновлені дані товару/послуги
+      404:
+        description: Послугу/товар не знайдено
+    """
+    data = request.get_json(silent=True) or {}
+    db = get_db()
+    existing = db.execute(
+        "SELECT * FROM products WHERE id = ?", (product_id,)
+    ).fetchone()
+    if existing is None:
+        return jsonify({"error": "Послугу/товар не знайдено"}), 404
+
+    title = data.get("title", existing["title"])
+    price = data.get("price", existing["price"])
+    description = data.get("description", existing["description"])
+
+    db.execute(
+        "UPDATE products SET title = ?, price = ?, description = ? WHERE id = ?",
+        (title, price, description, product_id),
+    )
+    db.commit()
+    updated = db.execute(
+        "SELECT * FROM products WHERE id = ?", (product_id,)
+    ).fetchone()
+    return jsonify(dict(updated)), 200
+
+
 # --- Замовлення (orders) ---
 
 @api_v1.route("/orders", methods=["GET"])
@@ -194,61 +252,6 @@ def create_order_v1():
         "product_id": data["product_id"],
         "status": status,
     }), 201
-@api_v1.route("/products/<int:product_id>", methods=["PUT", "PATCH"])
-def update_product_v1(product_id):
-    """
-    Оновити товар/послугу за ID (v1)
-    ---
-    tags:
-      - API v1 - Products
-    parameters:
-      - name: product_id
-        in: path
-        type: integer
-        required: true
-        example: 1
-      - name: body
-        in: body
-        required: true
-        schema:
-          type: object
-          properties:
-            title:
-              type: string
-              example: "Оновлена назва"
-            price:
-              type: number
-              example: 4000
-            description:
-              type: string
-              example: "Оновлений опис"
-    responses:
-      200:
-        description: Оновлені дані товару/послуги
-      404:
-        description: Послугу/товар не знайдено
-    """
-    data = request.get_json(silent=True) or {}
-    db = get_db()
-    existing = db.execute(
-        "SELECT * FROM products WHERE id = ?", (product_id,)
-    ).fetchone()
-    if existing is None:
-        return jsonify({"error": "Послугу/товар не знайдено"}), 404
-
-    title = data.get("title", existing["title"])
-    price = data.get("price", existing["price"])
-    description = data.get("description", existing["description"])
-
-    db.execute(
-        "UPDATE products SET title = ?, price = ?, description = ? WHERE id = ?",
-        (title, price, description, product_id),
-    )
-    db.commit()
-    updated = db.execute(
-        "SELECT * FROM products WHERE id = ?", (product_id,)
-    ).fetchone()
-    return jsonify(dict(updated)), 200
 
 
 @api_v1.route("/orders/<int:order_id>", methods=["GET"])

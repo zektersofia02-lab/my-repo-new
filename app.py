@@ -98,3 +98,48 @@ def internal_error(error):
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+from flask import Flask, jsonify
+
+app = Flask(__name__)
+
+# Глобальні обробники помилок у JSON-форматі
+@app.errorhandler(400)
+def bad_request(error):
+    return jsonify({
+        "error": {
+            "code": 400,
+            "message": "Bad Request",
+            "details": error.description if hasattr(error, 'description') else "Некоректний запит"
+        }
+    }), 400
+
+@app.errorhandler(404)
+def not_found(error):
+    return jsonify({
+        "error": {
+            "code": 404,
+            "message": "Not Found",
+            "details": error.description if hasattr(error, 'description') else "Ресурс не знайдено"
+        }
+    }), 404
+
+@app.errorhandler(405)
+def method_not_allowed(error):
+    return jsonify({
+        "error": {
+            "code": 405,
+            "message": "Method Not Allowed",
+            "details": "HTTP-метод не підтримується для цього маршруту"
+        }
+    }), 405
+
+@app.errorhandler(500)
+def internal_server_error(error):
+    return jsonify({
+        "error": {
+            "code": 500,
+            "message": "Internal Server Error",
+            "details": "Внутрішня помилка сервера"
+        }
+    }), 500
