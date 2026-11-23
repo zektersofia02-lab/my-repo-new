@@ -70,30 +70,47 @@ def contact():
 
     return render_template('contact.html', title='Контакти')
 
-@app.route('/api-demo')
-def api_demo():
-    return render_template('api-demo.html')
 
-
-# Обробка помилок у форматі JSON (щоб API повертало JSON, а не HTML)
+# Глобальні обробники помилок у деталізованому JSON-форматі
 @app.errorhandler(400)
 def bad_request(error):
-    return jsonify({'error': 'Некоректний запит', 'status': 400}), 400
-
+    return jsonify({
+        "error": {
+            "code": 400,
+            "message": "Bad Request",
+            "details": error.description if hasattr(error, 'description') else "Некоректний запит"
+        }
+    }), 400
 
 @app.errorhandler(404)
 def not_found(error):
-    return jsonify({'error': 'Ресурс не знайдено', 'status': 404}), 404
-
+    return jsonify({
+        "error": {
+            "code": 404,
+            "message": "Not Found",
+            "details": error.description if hasattr(error, 'description') else "Ресурс не знайдено"
+        }
+    }), 404
 
 @app.errorhandler(405)
 def method_not_allowed(error):
-    return jsonify({'error': 'Метод не дозволений', 'status': 405}), 405
-
+    return jsonify({
+        "error": {
+            "code": 405,
+            "message": "Method Not Allowed",
+            "details": "HTTP-метод не підтримується для цього маршруту"
+        }
+    }), 405
 
 @app.errorhandler(500)
-def internal_error(error):
-    return jsonify({'error': 'Внутрішня помилка сервера', 'status': 500}), 500
+def internal_server_error(error):
+    return jsonify({
+        "error": {
+            "code": 500,
+            "message": "Internal Server Error",
+            "details": "Внутрішня помилка сервера"
+        }
+    }), 500
 
 
 if __name__ == '__main__':
