@@ -23,12 +23,22 @@ app.teardown_appcontext(close_db)
 swagger = Swagger(app)
 
 # Реєструємо існуючі маршрути
-app.register_blueprint(shop_bp) 
+app.register_blueprint(shop_bp)
 app.register_blueprint(admin_bp)
 
 # Реєструємо версії REST API (/api/v1/... та /api/v2/...)
 app.register_blueprint(api_v1)
 app.register_blueprint(api_v2)
+
+
+def validate_product(data):
+    errors = []
+    if not data or not str(data.get('title', '')).strip():
+        errors.append("Поле title обов'язкове")
+    price = (data or {}).get('price')
+    if not isinstance(price, (int, float)) or isinstance(price, bool) or price < 0:
+        errors.append("Поле price має бути невід'ємним числом")
+    return errors
 
 
 @app.route('/')
