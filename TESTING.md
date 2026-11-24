@@ -6,9 +6,11 @@
   python -m pytest
 
 * Детальний запуск тестів:
+  ```bash
   python -m pytest -v
 
 * Перевірка покриття коду:
+  ```bash
   python -m pytest --cov=app --cov-report=term-missing
 
 ## 2. Unit тести (tests/test_validators.py)
